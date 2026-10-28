@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Family Recipes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FCF4F2;      /* blush white background */
+    --card:#FFFFFF;       /* clean white surfaces */
+    --ink:#3A2E30;        /* warm deep charcoal text */
+    --ink-soft:#8A7378;   /* muted mauve-grey */
+    --herb:#2E4A38;       /* forest green accent */
+    --herb-deep:#22382A;
+    --rose:#C97B88;       /* dusty rose accent */
+    --rose-soft:#F6DCE0;
+    --blush:#FBEAEC;      /* soft pink panel tint */
+    --ready-bg:#E7EFE7;   /* soft sage for "ready to make" */
+    --ready-line:#A9C3AF;
+    --summer:#E39A5E;
+    --winter:#5F8299;
+    --line:#F0DEE1;       /* rose-tinted hairline */
+    --shadow:0 1px 2px rgba(58,46,48,.05), 0 8px 24px -12px rgba(58,46,48,.16);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Work Sans", system-ui, -apple-system, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* ---- Header ---- */
+  header.masthead{
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(1200px 220px at 80% -60%, rgba(217,138,151,.14), transparent 70%),
+      var(--paper);
+  }
+  .masthead-inner{padding:40px 20px 30px;max-width:1120px;margin:0 auto}
+  .eyebrow{
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--herb);font-weight:600;margin:0 0 10px;
+  }
+  h1.title{
+    font-family:"Fraunces", Georgia, serif;
+    font-weight:600;font-size:clamp(2.2rem,5vw,3.4rem);
+    line-height:1.02;margin:0;letter-spacing:-.01em;
+  }
+  h1.title em{font-style:italic;color:var(--herb)}
+  .tagline{
+    color:var(--ink-soft);max-width:52ch;margin:14px 0 0;font-size:1.02rem;
+  }
+
+  /* ---- Controls ---- */
+  .controls{position:sticky;top:0;z-index:20;background:var(--paper);
+    border-bottom:1px solid var(--line);padding:14px 0}
+  .controls-inner{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .search{
+    flex:1 1 240px;min-width:0;display:flex;align-items:center;gap:8px;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:9px 12px;box-shadow:var(--shadow);
+  }
+  .search svg{flex:0 0 auto;color:var(--ink-soft)}
+  .search input{border:0;outline:0;background:transparent;font:inherit;
+    color:var(--ink);width:100%}
+  select{
+    font:inherit;color:var(--ink);background:var(--card);
+    border:1px solid var(--line);border-radius:10px;padding:9px 12px;
+    box-shadow:var(--shadow);cursor:pointer;
+  }
+  select:focus-visible, input:focus-visible, button:focus-visible, .card:focus-visible{
+    outline:2px solid var(--herb);outline-offset:2px;
+  }
+
+  /* ---- Pantry panel ---- */
+  .pantry{
+    border-bottom:1px solid var(--line);
+    background:var(--blush);
+  }
+  .pantry-inner{padding:16px 0 18px}
+  .pantry-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .pantry-head h2{
+    font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.15rem;margin:0;
+  }
+  .pantry-head p{margin:0;color:var(--ink-soft);font-size:.92rem}
+  .chipbox{
+    display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:8px 10px;
+  }
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--herb);color:#fff;border-radius:999px;
+    padding:4px 6px 4px 12px;font-size:.86rem;font-weight:500;
+  }
+  .chip button{
+    border:0;background:rgba(255,255,255,.22);color:#fff;cursor:pointer;
+    width:18px;height:18px;border-radius:999px;line-height:1;font-size:13px;
+    display:grid;place-items:center;padding:0;
+  }
+  .chip button:hover{background:rgba(255,255,255,.4)}
+  .chipbox input{border:0;outline:0;background:transparent;font:inherit;
+    flex:1 1 120px;min-width:120px;color:var(--ink);padding:4px}
+  .pantry-actions{display:flex;gap:14px;align-items:center;margin-top:10px;flex-wrap:wrap}
+  .toggle{display:inline-flex;align-items:center;gap:8px;color:var(--ink-soft);
+    font-size:.92rem;cursor:pointer;user-select:none}
+  .toggle input{accent-color:var(--herb);width:16px;height:16px}
+  .textbtn{background:none;border:0;color:var(--herb);font:inherit;font-weight:500;
+    cursor:pointer;text-decoration:underline;text-underline-offset:2px;padding:0}
+  .textbtn:hover{color:var(--herb-deep)}
+
+  /* ---- Results meta ---- */
+  .meta{padding:22px 0 6px;color:var(--ink-soft);font-size:.9rem;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .meta .count{font-weight:500;color:var(--ink)}
+
+  /* ---- Grid ---- */
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:18px;padding:6px 0 60px;
+  }
+  .card{
+    position:relative;text-align:left;cursor:pointer;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 20px 18px;box-shadow:var(--shadow);
+    display:flex;flex-direction:column;gap:12px;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    animation:rise .4s ease both;
+  }
+  .card:hover{transform:translateY(-3px);
+    box-shadow:0 2px 4px rgba(36,30,23,.08),0 16px 34px -16px rgba(36,30,23,.3)}
+  .card.ready{background:var(--ready-bg);border-color:var(--ready-line)}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .season-dot{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;
+    letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;white-space:nowrap}
+  .dot{width:9px;height:9px;border-radius:999px;flex:0 0 auto}
+  .dot.summer{background:var(--summer)}
+  .dot.winter{background:var(--winter)}
+  .dot.year{background:linear-gradient(90deg,var(--summer) 50%,var(--winter) 50%)}
+  .type-tag{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--herb);font-weight:600;border:1px solid var(--line);
+    border-radius:999px;padding:3px 9px;background:var(--paper)}
+  .card h3{font-family:"Fraunces",Georgia,serif;font-weight:600;
+    font-size:1.32rem;line-height:1.12;margin:0;letter-spacing:-.01em}
+  .from{font-family:"Fraunces",Georgia,serif;font-style:italic;
+    color:var(--herb);font-size:1rem;margin:0}
+  .ing-peek{color:var(--ink-soft);font-size:.9rem;margin:0;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .ready-flag{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;
+    font-weight:600;color:var(--herb-deep)}
+  .have-flag{font-size:.82rem;color:var(--rose);font-weight:600}
+  .ready-flag svg{color:var(--herb)}
+
+  /* ---- Empty ---- */
+  .empty{padding:60px 20px;text-align:center;color:var(--ink-soft)}
+  .empty strong{display:block;font-family:"Fraunces",Georgia,serif;
+    color:var(--ink);font-size:1.3rem;font-weight:600;margin-bottom:6px}
+
+  /* ---- Modal ---- */
+  .overlay{position:fixed;inset:0;background:rgba(36,30,23,.44);
+    display:none;align-items:flex-start;justify-content:center;
+    padding:40px 16px;z-index:50;overflow-y:auto}
+  .overlay.open{display:flex}
+  .modal{background:var(--card);border-radius:16px;max-width:640px;width:100%;
+    box-shadow:0 30px 80px -20px rgba(36,30,23,.5);
+    animation:rise .3s ease both;overflow:hidden}
+  .modal-head{padding:26px 28px 20px;border-bottom:1px solid var(--line);position:relative}
+  .modal-head .type-tag{position:relative;top:0}
+  .modal-close{position:absolute;top:16px;right:16px;width:34px;height:34px;
+    border-radius:999px;border:1px solid var(--line);background:var(--paper);
+    cursor:pointer;font-size:18px;color:var(--ink-soft);display:grid;place-items:center}
+  .modal-close:hover{color:var(--ink);background:var(--card)}
+  .modal h2{font-family:"Fraunces",Georgia,serif;font-weight:700;
+    font-size:1.9rem;line-height:1.08;margin:14px 0 6px;letter-spacing:-.015em}
+  .modal .from{font-size:1.08rem;margin:0}
+  .modal-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .modal-body{padding:24px 28px 30px;display:grid;grid-template-columns:1fr;gap:26px}
+  .modal-body h4{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-soft);font-weight:600;margin:0 0 12px}
+  ul.ings{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  ul.ings li{display:flex;align-items:baseline;gap:10px;padding-bottom:8px;
+    border-bottom:1px dashed var(--line)}
+  ul.ings li .tick{flex:0 0 auto;color:var(--herb);font-size:.85rem;width:16px}
+  ul.ings li .tick.miss{color:var(--line)}
+  ol.steps{margin:0;padding:0;list-style:none;counter-reset:step;display:grid;gap:14px}
+  ol.steps li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+  ol.steps li::before{counter-increment:step;content:counter(step);
+    font-family:"Fraunces",Georgia,serif;font-weight:600;color:#fff;
+    background:var(--herb);width:28px;height:28px;border-radius:999px;
+    display:grid;place-items:center;font-size:.9rem}
+  .notes{background:var(--blush);border-left:3px solid var(--rose);
+    padding:12px 16px;border-radius:0 8px 8px 0;color:var(--ink-soft);font-size:.94rem}
+  .notes b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--ink-soft);
+    font-size:.86rem;text-align:center}
+
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+  }
+  @media (max-width:560px){
+    .controls-inner{flex-direction:column;align-items:stretch}
+    select{width:100%}
+    .masthead-inner{padding:30px 20px 24px}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">Stephanie&rsquo;s Kitchen Archive</p>
+    <h1 class="title">Our Family Recipes</h1>
+  </div>
+</header>
+
+<section class="controls">
+  <div class="wrap controls-inner">
+    <label class="search" aria-label="Search recipes">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="search" placeholder="Search a recipe or ingredient&hellip;" autocomplete="off">
+    </label>
+    <select id="season" aria-label="Filter by season">
+      <option value="">All seasons</option>
+      <option value="summer">Summer</option>
+      <option value="winter">Winter</option>
+      <option value="year-round">Year-round</option>
+    </select>
+    <select id="type" aria-label="Filter by type"><option value="">All types</option></select>
+    <select id="source" aria-label="Filter by source"><option value="">Everyone</option></select>
+  </div>
+</section>
+
+<section class="pantry">
+  <div class="wrap pantry-inner">
+    <div class="pantry-head">
+      <h2>What&rsquo;s in your kitchen?</h2>
+      <p>Add ingredients you have on hand to see which recipes use them, with the best matches first.</p>
+    </div>
+    <div class="chipbox" id="chipbox">
+      <input id="pantry-input" type="text" placeholder="Type an ingredient and press Enter (e.g. asparagus)" autocomplete="off" aria-label="Add an ingredient you have">
+    </div>
+    <div class="pantry-actions">
+      <label class="toggle"><input type="checkbox" id="ready-only"> Show only what I can make now</label>
+      <button class="textbtn" id="clear-pantry" hidden>Clear ingredients</button>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="meta">
+    <span class="count" id="count"></span>
+    <span id="hint">Assumes you always have salt, pepper, oil, butter, flour &amp; sugar.</span>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer class="wrap">
+  A living archive &mdash; contact Stephanie to add your favourite recipes.
+</footer>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+/* =========================================================================
+   FAMILY RECIPE DATA
+   To add a recipe, copy one block below and fill it in.
+   - season: "summer" | "winter" | "year-round"
+   - type:   "Appetizer" | "Main" | "Side" | "Dessert" | "Drink" (any label works)
+   - ingredients: each has  display (what you read) and key (the core ingredient
+     used for searching & pantry matching — keep it a simple lowercase noun)
+   ========================================================================= */
+const STAPLES = ["salt","pepper","olive oil","oil","butter","sugar","flour","water"];
+
+const RECIPES = [
+  {
+    title:"Black Bean Dip", from:"Kathi Noah", season:"year-round", type:"Appetizer",
+    ingredients:[
+      {display:"4 cloves garlic", key:"garlic"},
+      {display:"8 oz. cream cheese", key:"cream cheese"},
+      {display:"½ cup sour cream", key:"sour cream"},
+      {display:"1 can black beans, rinsed", key:"black beans"},
+      {display:"Juice of 2 limes", key:"lime"},
+      {display:"2 tbsp chili powder (taco spice)", key:"chili powder"},
+      {display:"½ tsp oregano", key:"oregano"},
+      {display:"Cayenne, to taste", key:"cayenne"},
+      {display:"Nacho chips, to serve", key:"nacho chips"}
+    ],
+    steps:[
+      "Soften the cream cheese, then combine with the sour cream, black beans, garlic and lime juice.",
+      "Stir in the chili powder, oregano and cayenne; blend until smooth.",
+      "Serve with nacho chips."
+    ],
+    notes:"Better with more lime juice and chili powder."
+  },
+  {
+    title:"German Potato Salad", from:"", season:"summer", type:"Side",
+    ingredients:[
+      {display:"4 cups cubed peeled potatoes", key:"potato"},
+      {display:"4 slices bacon, diced", key:"bacon"},
+      {display:"½ cup chopped onion", key:"onion"},
+      {display:"½ cup chopped green pepper", key:"green pepper"},
+      {display:"2 eggs, beaten", key:"eggs"},
+      {display:"¼ cup sugar", key:"sugar"},
+      {display:"¼ cup vinegar", key:"vinegar"},
+      {display:"¼ tsp pepper", key:"pepper"},
+      {display:"2 hard-boiled eggs, sliced", key:"eggs"}
+    ],
+    steps:[
+      "Cook the potatoes in boiling water until tender, then drain.",
+      "Cook the bacon, then add the onion and green pepper to the pan.",
+      "Combine the beaten eggs with the vinegar, sugar and pepper and mix. Add the egg mix to the bacon mix and cook until thickened.",
+      "Remove from the heat and toss with the potatoes. Garnish with the sliced eggs."
+    ]
+  },
+  {
+    title:"Strawberry Spinach Salad", from:"Brenda Caul", season:"summer", type:"Side",
+    ingredients:[
+      {display:"Baby spinach", key:"spinach"},
+      {display:"Sliced strawberries (or mandarins)", key:"strawberry"},
+      {display:"Candied almonds", key:"almond"},
+      {display:"¼–½ cup sugar", key:"sugar"},
+      {display:"¼ tbsp Worcestershire", key:"worcestershire"},
+      {display:"¼ tbsp paprika", key:"paprika"},
+      {display:"½ cup olive oil", key:"olive oil"},
+      {display:"½ cup apple cider vinegar", key:"apple cider vinegar"}
+    ],
+    steps:[
+      "Whisk together the sugar, Worcestershire, paprika, olive oil and apple cider vinegar to make the dressing.",
+      "Toss the dressing with the spinach, sliced strawberries (or mandarins) and candied almonds."
+    ]
+  },
+  {
+    title:"Fettuccine Alfredo", from:"", season:"winter", type:"Main",
+    ingredients:[
+      {display:"¼ cup butter", key:"butter"},
+      {display:"1½ cups cream", key:"cream"},
+      {display:"½ cup parmesan cheese", key:"parmesan"},
+      {display:"Fettuccine noodles", key:"fettuccine"}
+    ],
+    steps:[
+      "Melt the butter with the cream and keep warm.",
+      "Cook the noodles, drain and return to the pot.",
+      "Add the cheese and toss for one minute.",
+      "Add the cream mix and toss until thick. Serve with extra cheese to taste."
+    ]
+  },
+  {
+    title:"Chicken in Peanut Sauce", from:"", season:"year-round", type:"Main",
+    ingredients:[
+      {display:"Chicken breasts", key:"chicken"},
+      {display:"1 cup chicken stock", key:"chicken stock"},
+      {display:"2 tbsp honey", key:"honey"},
+      {display:"2 tbsp soy sauce", key:"soy sauce"},
+      {display:"2 tbsp cornstarch", key:"cornstarch"},
+      {display:"¼ cup peanut butter", key:"peanut butter"},
+      {display:"2–3 green onions, chopped", key:"green onion"},
+      {display:"1 red pepper, cut into strips", key:"red pepper"},
+      {display:"Parsley, to taste", key:"parsley"},
+      {display:"Vermicelli noodles", key:"vermicelli"}
+    ],
+    steps:[
+      "Brown the chicken, then remove.",
+      "Into the pan add the stock, honey and soy sauce, then whisk in the cornstarch and peanut butter. Cook and stir until thick.",
+      "Add the onions, peppers and chicken.",
+      "Cook the noodles, then serve topped with the sauce and parsley."
+    ]
+  },
+  {
+    title:"Chicken in Red Sauce", from:"Brenda Caul", season:"year-round", type:"Main",
+    ingredients:[
+      {display:"Chicken breasts", key:"chicken"},
+      {display:"¼ cup butter", key:"butter"},
+      {display:"2 tbsp tomato paste", key:"tomato paste"},
+      {display:"2 tbsp flour", key:"flour"},
+      {display:"1½ cups chicken stock", key:"chicken stock"},
+      {display:"¾ cup sour cream", key:"sour cream"},
+      {display:"Basmati rice, to serve", key:"rice"}
+    ],
+    steps:[
+      "Brown the chicken and remove.",
+      "To the pan add the chicken stock and bring to a boil. Whisk in the tomato paste and flour.",
+      "Add the sour cream, chicken and salt & pepper.",
+      "Cover and simmer slowly. Serve over basmati rice."
+    ]
+  },
+  {
+    title:"Mustard Grilled Chicken", from:"Brenda Caul", season:"summer", type:"Main",
+    ingredients:[
+      {display:"4 chicken breasts", key:"chicken"},
+      {display:"½ cup lemon juice", key:"lemon"},
+      {display:"⅓ cup Dijon mustard", key:"dijon"},
+      {display:"2 tbsp basil", key:"basil"},
+      {display:"1 tbsp Italian dressing", key:"italian dressing"},
+      {display:"2 tsp lemon pepper", key:"lemon pepper"},
+      {display:"Salt & pepper", key:"salt"}
+    ],
+    steps:[
+      "Marinade the chicken breasts in the mixture for 2–4 hours.",
+      "Grill on the BBQ until cooked through."
+    ]
+  },
+  {
+    title:"Party Punch", from:"", season:"year-round", type:"Drink",
+    ingredients:[
+      {display:"2 L ginger ale", key:"ginger ale"},
+      {display:"40 oz. pineapple juice", key:"pineapple juice"},
+      {display:"6 oz. lemon juice", key:"lemon"},
+      {display:"1 bottle cranberry juice", key:"cranberry juice"},
+      {display:"1 pkg frozen strawberries (with juice)", key:"strawberry"}
+    ],
+    steps:[
+      "Combine the pineapple juice, lemon juice, cranberry juice and frozen strawberries in a large punch bowl.",
+      "Top with the ginger ale just before serving."
+    ]
+  },
+  {
+    title:"Mars Bar Cookies", from:"Brenda Caul", season:"year-round", type:"Dessert",
+    ingredients:[
+      {display:"4 Mars bars, chopped", key:"mars bar"},
+      {display:"2 cups rice crispies", key:"rice crispies"},
+      {display:"3 Aero bars, chopped", key:"aero bar"},
+      {display:"Butter", key:"butter"}
+    ],
+    steps:[
+      "Melt the Mars bars with butter, then mix with the rice crispies.",
+      "Pour into a greased pan in an even layer.",
+      "Melt the Aero bars (or chocolate chips) with butter.",
+      "Pour on top of the first layer and freeze."
+    ]
+  },
+  {
+    title:"Greek Linguine", from:"Stephanie Stack", season:"year-round", type:"Main",
+    ingredients:[
+      {display:"1 large can diced tomatoes", key:"tomato"},
+      {display:"2 roasted red peppers", key:"red pepper"},
+      {display:"1 chicken breast", key:"chicken"},
+      {display:"¼ cup olive oil", key:"olive oil"},
+      {display:"Linguine", key:"linguine"},
+      {display:"1 cup feta cheese, crumbled", key:"feta"}
+    ],
+    steps:[
+      "Brown the chicken and cut into strips.",
+      "Cook the linguine, drain and return to the pot.",
+      "Add the can of tomatoes with juices. Add the chopped red pepper and chicken; stir.",
+      "Add the olive oil and feta cheese, continuing to stir until creamy. Season with lots of oregano."
+    ],
+    notes:"Serves 2–3."
+  },
+  {
+    title:"Bok Choy Salad", from:"Brenda Caul", season:"summer", type:"Side",
+    ingredients:[
+      {display:"1 head bok choy (1 large or 4 small)", key:"bok choy"},
+      {display:"Green onions, chopped", key:"green onion"},
+      {display:"1 package Mr. Noodles", key:"mr. noodles"},
+      {display:"Garlic", key:"garlic"},
+      {display:"Sesame oil", key:"sesame oil"},
+      {display:"2 tbsp soya sauce", key:"soy sauce"},
+      {display:"¼ cup white vinegar", key:"white vinegar"},
+      {display:"¼–½ cup olive oil", key:"olive oil"},
+      {display:"⅓ cup sugar", key:"sugar"}
+    ],
+    steps:[
+      "Fry the Mr. Noodles with oil and garlic until brown. Pour over the bok choy and onions.",
+      "For the dressing, mix the last four ingredients and bring to a boil.",
+      "Cool and serve."
+    ],
+    notes:"Double the salad or half the dressing."
+  },
+  {
+    title:"Chilled Strawberry Soup", from:"", season:"summer", type:"Appetizer",
+    ingredients:[
+      {display:"1 pint strawberries, washed, greens removed", key:"strawberry"},
+      {display:"1 cup sour cream", key:"sour cream"},
+      {display:"1 cup half & half", key:"half and half"},
+      {display:"¼ cup sugar", key:"sugar"},
+      {display:"2 tbsp dry white wine", key:"white wine"}
+    ],
+    steps:[
+      "Blend the strawberries in a blender until smooth.",
+      "Pour into a bowl and add the remaining ingredients. Mix well.",
+      "Chill several hours or overnight."
+    ]
+  },
+  {
+    title:"Special Shrimp Pasta", from:"Brenda Caul", season:"year-round", type:"Main",
+    ingredients:[
+      {display:"1 red pepper", key:"red pepper"},
+      {display:"2 cups chicken broth", key:"chicken stock"},
+      {display:"1 good-sized piece ginger, peeled", key:"ginger"},
+      {display:"¼ cup lemon juice", key:"lemon"},
+      {display:"½ cup cream", key:"cream"},
+      {display:"Shrimp, thawed and shelled", key:"shrimp"},
+      {display:"Pasta", key:"pasta"}
+    ],
+    steps:[
+      "Roast a red pepper: cut it in two, clean it out and lay it face down on a piece of tin foil. Bake at 475°F for about 20 minutes, trying not to let it burn. Wrap it in the foil and set aside.",
+      "Put about 2 cups chicken broth in a pot. Add the ginger, peeled and cut into thin strips, and simmer for half an hour until it tastes good and strongly of ginger.",
+      "Add about ¼ cup lemon juice (it will taste odd, but remember the cream gets added). Remove the ginger strips.",
+      "Peel the roasted red pepper, cut into small strips and add, along with any juice that comes out of the pepper.",
+      "Add about ½ cup cream and taste, adjusting ginger, lemon and cream to your liking.",
+      "Cook the pasta. Drop the shrimp into the cream mixture and, the moment they turn pink and lose their opaqueness, move off the heat. Serve."
+    ],
+    notes:"Taste as you go: is it gingery enough, is it lemony enough? Cooking is really simple."
+  },
+  {
+    title:"Toblerone Cheesecake", from:"Sharon Moores", season:"year-round", type:"Dessert",
+    ingredients:[
+      {display:"1¼ cups Oreo crumbs", key:"oreo"},
+      {display:"¼ cup butter, melted", key:"butter"},
+      {display:"3 pkg cream cheese (250g each)", key:"cream cheese"},
+      {display:"¾ cup packed brown sugar", key:"brown sugar"},
+      {display:"1 tbsp vanilla", key:"vanilla"},
+      {display:"3 eggs", key:"eggs"},
+      {display:"⅓ cup caramel ice cream topping", key:"caramel"},
+      {display:"1 Toblerone, chopped (100g)", key:"toblerone"}
+    ],
+    steps:[
+      "Preheat oven to 350°F. Mix the Oreo crumbs and butter and press into a springform pan.",
+      "Beat the cream cheese, brown sugar and vanilla until blended, then add the eggs one at a time.",
+      "Pour over the crust and bake 40–45 minutes until the centre is almost set.",
+      "Run a knife around the edge to loosen, then refrigerate 4 hours.",
+      "Spread caramel before serving and top with the chopped Toblerone."
+    ]
+  },
+  {
+    title:"Hot Mustard Sauce", from:"Brenda Caul", season:"year-round", type:"Sauce",
+    ingredients:[
+      {display:"½ cup dry mustard", key:"dry mustard"},
+      {display:"½ cup vinegar", key:"vinegar"},
+      {display:"1 egg", key:"eggs"},
+      {display:"¼ cup sugar", key:"sugar"},
+      {display:"Dash salt", key:"salt"},
+      {display:"1 cup mayonnaise", key:"mayonnaise"}
+    ],
+    steps:[
+      "In a jar, mix together ½ cup dry mustard and ½ cup vinegar. Cover and let stand overnight.",
+      "In a saucepan, beat 1 egg, then stir in ¼ cup sugar, a dash of salt and the mustard mixture.",
+      "Cook, stirring constantly over low heat, until the mixture thickens slightly and coats a spoon. Cool.",
+      "Blend 1 cup mayonnaise into the cooled mixture and chill before serving."
+    ],
+    notes:"A fondue dipping sauce."
+  },
+  {
+    title:"Basil Butter", from:"Brenda Caul", season:"year-round", type:"Sauce",
+    ingredients:[
+      {display:"½ cup butter, softened", key:"butter"},
+      {display:"1 tsp lemon juice", key:"lemon"},
+      {display:"¾ tsp dried basil, crushed", key:"basil"}
+    ],
+    steps:[
+      "Cream ½ cup softened butter until fluffy.",
+      "Beat in 1 teaspoon lemon juice and ¾ teaspoon dried basil, crushed.",
+      "Keep the basil butter at room temperature for at least 1 hour to mellow before serving."
+    ],
+    notes:"A fondue dipping sauce. Makes ½ cup."
+  },
+  {
+    title:"Tomato Sauce", from:"Brenda Caul", season:"year-round", type:"Sauce",
+    ingredients:[
+      {display:"½ cup dairy sour cream", key:"sour cream"},
+      {display:"2 tbsp chili sauce", key:"chili sauce"},
+      {display:"½ tsp prepared horseradish", key:"horseradish"},
+      {display:"¼ tsp salt", key:"salt"},
+      {display:"Dash freshly ground pepper", key:"pepper"}
+    ],
+    steps:[
+      "Combine the sour cream, chili sauce, horseradish, salt and freshly ground pepper.",
+      "Chill the mixture until serving."
+    ],
+    notes:"A fondue dipping sauce. Makes ⅔ cup."
+  },
+  {
+    title:"Curry Sauce", from:"Brenda Caul", season:"year-round", type:"Sauce",
+    ingredients:[
+      {display:"3 tbsp butter or margarine", key:"butter"},
+      {display:"1 tsp curry powder", key:"curry powder"},
+      {display:"2 tbsp all-purpose flour", key:"flour"},
+      {display:"½ tsp salt", key:"salt"},
+      {display:"Dash pepper", key:"pepper"},
+      {display:"1 cup milk", key:"milk"}
+    ],
+    steps:[
+      "In a saucepan, melt 3 tablespoons butter or margarine over low heat. Stir in the curry powder and cook for 1–2 minutes.",
+      "Blend in the flour, salt and pepper.",
+      "Add the milk all at once. Cook quickly, stirring constantly, until the mixture thickens and bubbles.",
+      "Serve hot."
+    ],
+    notes:"A fondue dipping sauce. Makes one cup."
+  },
+  {
+    title:"Mom's Cheesecake", from:"Sarah Stack", season:"year-round", type:"Dessert",
+    ingredients:[
+      {display:"2 cups graham cracker crumbs", key:"graham cracker"},
+      {display:"¼ stick butter", key:"butter"},
+      {display:"2 tbsp brown sugar", key:"brown sugar"},
+      {display:"5 large eggs", key:"eggs"},
+      {display:"24 oz cream cheese, softened", key:"cream cheese"},
+      {display:"1 cup sugar", key:"sugar"},
+      {display:"2 tsp lemon juice", key:"lemon"},
+      {display:"1 tsp vanilla", key:"vanilla"},
+      {display:"1 cup sour cream (topping)", key:"sour cream"},
+      {display:"¼ cup sugar (topping)", key:"sugar"},
+      {display:"1 tsp vanilla (topping)", key:"vanilla"}
+    ],
+    steps:[
+      "Crust: mix the graham cracker crumbs, butter and brown sugar, press into the bottom of a pan and bake 10 minutes at 350°F.",
+      "Beat the eggs until light and combine with the cream cheese until brought together. Add the sugar, lemon juice and vanilla and beat until smooth.",
+      "Pour the filling into the pan and bake at 350°F for 30 minutes, or until firm. Allow to stand for 20 minutes.",
+      "Mix 1 cup sour cream with ¼ cup sugar and 1 teaspoon vanilla and pour over the top of the cheesecake. Bake at 350°F for 5 minutes."
+    ],
+    notes:"Use less sugar and more vanilla."
+  },
+  {
+    title:"Snickerdoodles", from:"", season:"year-round", type:"Dessert",
+    ingredients:[
+      {display:"1 cup butter", key:"butter"},
+      {display:"¾ cup sugar", key:"sugar"},
+      {display:"¾ cup brown sugar", key:"brown sugar"},
+      {display:"2 eggs", key:"eggs"},
+      {display:"2¾ cups flour", key:"flour"},
+      {display:"2 tsp cream of tartar", key:"cream of tartar"},
+      {display:"1 tsp baking soda", key:"baking soda"},
+      {display:"¼ tsp salt", key:"salt"},
+      {display:"3 tbsp sugar (for coating)", key:"sugar"},
+      {display:"3 tsp ground cinnamon", key:"cinnamon"}
+    ],
+    steps:[
+      "Heat oven to 350°F. Soften (not melt!) the butter and mix with the sugar, brown sugar and eggs.",
+      "In another bowl, mix the flour, baking soda, cream of tartar and salt.",
+      "Mix the two bowls of ingredients together.",
+      "Put the dough in the freezer for about 15 minutes, or until firmer.",
+      "Mix the coating sugar and cinnamon.",
+      "Spoon out dough, roll into balls and coat in the cinnamon and sugar.",
+      "Place on an ungreased cookie sheet a few inches apart (the cookies will spread).",
+      "Bake about 10 minutes, or until your kitchen smells like delicious cookies."
+    ]
+  },
+  {
+    title:"Seasoned Rib Roast", from:"", season:"winter", type:"Main",
+    ingredients:[
+      {display:"1 Kirkland Signature seasoned rib roast", key:"rib roast"}
+    ],
+    steps:[
+      "Preheat oven to 500°F.",
+      "Remove the plastic wrap from the aluminum container and discard the foam tray. Place in the oven on the center rack.",
+      "Cook for 25 minutes at 500°F.",
+      "Turn the oven down to 200°F and continue to cook for 20 to 30 minutes per pound, or until a thermometer inserted into the center of the roast reads 125–135°F for rare, 135–145°F for medium rare, 145–155°F for medium, 155–165°F for medium well, or 165°F for well done.",
+      "Remove the rib roast from the oven and let rest for 15 minutes.",
+      "Cut the twine holding the bone to the roast. Separate the roast from the bone, slice and serve."
+    ],
+    notes:"Suggested serving size 16 oz. per person. Blade tenderized; for safety the USDA recommends cooking to a minimum of 160°F."
+  },
+  {
+    title:"Georgetown Bread", from:"Bernard Caul", season:"year-round", type:"Bread",
+    ingredients:[
+      {display:"4 cups flour", key:"flour"},
+      {display:"¼ tsp yeast", key:"yeast"},
+      {display:"1½ tsp salt", key:"salt"},
+      {display:"2 cups warm water", key:"water"}
+    ],
+    steps:[
+      "Stir together the flour, yeast, salt and warm water. It will look really sticky, then too dry, then perfect.",
+      "Cover with foil and let rise 18 hours (65°F is perfect).",
+      "Punch down with a spatula and fold the dough over itself a few times.",
+      "Oil a heavy pan with olive oil and sprinkle with flour or corn meal.",
+      "On a work surface sprayed with water and laid with saran wrap, set the dough and flour the top. Shape into a log/loaf, bring the plastic to the edge of the pan and flip over. Sprinkle flour on top and cover with a dry towel. Let rise 2 hours (more out than up).",
+      "Bake at 425°F for 35–45 minutes."
+    ]
+  },
+  {
+    title:"Broccoli Peanut Salad", from:"", season:"summer", type:"Side",
+    ingredients:[
+      {display:"1 large head broccoli, cut up", key:"broccoli"},
+      {display:"½ cup thinly sliced green onion", key:"green onion"},
+      {display:"½ cup peanuts", key:"peanuts"},
+      {display:"¼ cup natural peanut butter", key:"peanut butter"},
+      {display:"1 tbsp rice vinegar", key:"rice vinegar"},
+      {display:"1 tbsp soy sauce", key:"soy sauce"},
+      {display:"1 tbsp honey", key:"honey"},
+      {display:"⅛ tsp sesame oil", key:"sesame oil"},
+      {display:"1–2 tbsp oil, to thin the sauce", key:"oil"}
+    ],
+    steps:[
+      "Whisk the peanut butter, rice vinegar, soy sauce, honey and sesame oil into a sauce, thinning with 1–2 tablespoons oil as needed.",
+      "Par-boil the broccoli florets for about 30 seconds, then transfer to a bowl of ice water. Drain.",
+      "Toss the broccoli and green onion in the peanut sauce. Garnish with peanuts and sesame seeds."
+    ]
+  },
+  {
+    title:"Green Goddess Salad", from:"", season:"summer", type:"Side",
+    ingredients:[
+      {display:"1 small head green cabbage", key:"cabbage"},
+      {display:"½ cucumber", key:"cucumber"},
+      {display:"¼ cup chives (or garlic chives)", key:"chives"},
+      {display:"1 bundle green onions", key:"green onion"},
+      {display:"1 cup basil leaves", key:"basil"},
+      {display:"1 cup spinach leaves", key:"spinach"},
+      {display:"2 cloves garlic", key:"garlic"},
+      {display:"1 small shallot", key:"shallot"},
+      {display:"Juice of 2 lemons", key:"lemon"},
+      {display:"¼ cup olive oil", key:"olive oil"},
+      {display:"¼ cup nuts of your choice (eg cashews, walnuts)", key:"nuts"},
+      {display:"2–3 tbsp nutritional yeast", key:"nutritional yeast"},
+      {display:"2 tbsp rice vinegar", key:"rice vinegar"},
+      {display:"Sea salt", key:"salt"}
+    ],
+    steps:[
+      "Chop the cabbage, cucumber, chives and green onions all very fine.",
+      "Blend the basil, spinach, garlic, shallot, lemon juice, olive oil, nuts, nutritional yeast, rice vinegar and sea salt in a high-speed blender to make the dressing.",
+      "Mix the dressing with the chopped salad."
+    ],
+    notes:"Eat alone or with tortilla chips."
+  },
+  {
+    title:"Lemon Sorbet", from:"Gisela Currie", season:"summer", type:"Dessert",
+    ingredients:[
+      {display:"1 cup water", key:"water"},
+      {display:"¾ cup sugar", key:"sugar"},
+      {display:"1 tbsp lemon zest", key:"lemon"},
+      {display:"¾ cup lemon juice", key:"lemon"}
+    ],
+    steps:[
+      "Boil the sugar and water for 2 minutes, then let cool.",
+      "Add the lemon zest and lemon juice.",
+      "Freeze, beating with a whisk every 20 minutes until it reaches a sorbet texture (use a stainless steel bowl)."
+    ]
+  },
+  {
+    title:"Scallion Pancakes", from:"", season:"year-round", type:"Appetizer",
+    ingredients:[
+      {display:"1 cup flour", key:"flour"},
+      {display:"½ cup hot water", key:"water"},
+      {display:"2 tbsp solid fat (eg crisco, coconut oil, butter)", key:"shortening"},
+      {display:"½ tsp salt", key:"salt"},
+      {display:"½ tsp Chinese five-spice powder", key:"five spice"},
+      {display:"Green onions or chives, very thin", key:"green onion"},
+      {display:"Soy sauce, for dipping", key:"soy sauce"}
+    ],
+    steps:[
+      "Dough: mix 1 cup flour and ½ cup hot water together with your hands. Cover and rest 15 minutes.",
+      "Paste: mix together 2 tablespoons solid fat (crisco, coconut oil or butter), ½ teaspoon salt and ½ teaspoon Chinese five-spice powder.",
+      "Chop the green onions or chives very thin.",
+      "Flour your work surface, then knead and roll out the dough (be patient!) into a thin square sheet.",
+      "Spread a thin layer of the flavor paste on top like a pizza, leaving about 1 inch of dough at the edges. Sprinkle green onions on top.",
+      "Roll up into a tube and cut into about 6 chunks. Pinch both tube ends closed (optional) and roll each out again to make pancakes.",
+      "Fry in a skillet with oil until crispy.",
+      "Dip in soy sauce with extra paste mixed in."
+    ]
+  },
+  {
+    title:"Peanut Sauce", from:"Gisela Currie", season:"year-round", type:"Sauce",
+    ingredients:[
+      {display:"6 tbsp peanut butter", key:"peanut butter"},
+      {display:"1 tbsp soy sauce", key:"soy sauce"},
+      {display:"1 tsp sesame oil", key:"sesame oil"},
+      {display:"2 tsp rice wine vinegar", key:"rice vinegar"},
+      {display:"2 tsp sugar", key:"sugar"},
+      {display:"2 cloves garlic, minced", key:"garlic"},
+      {display:"⅓ cup chicken broth", key:"chicken stock"},
+      {display:"Cilantro, chopped", key:"cilantro"},
+      {display:"5–10 drops chili oil", key:"chili oil"}
+    ],
+    steps:[
+      "Whisk all the ingredients together until smooth.",
+      "Serve as a dipping sauce for meat fondue."
+    ],
+    notes:"A dipping sauce for meat fondue."
+  },
+  {
+    title:"Creamy Dill Sauce", from:"Gisela Currie", season:"year-round", type:"Sauce",
+    ingredients:[
+      {display:"1 cup sour cream (or yogurt)", key:"sour cream"},
+      {display:"¼ cup minced fresh dill", key:"dill"},
+      {display:"2 cloves garlic, finely chopped", key:"garlic"},
+      {display:"2 tbsp minced parsley", key:"parsley"},
+      {display:"1 tsp lemon juice", key:"lemon"},
+      {display:"Salt & pepper, to taste", key:"salt"}
+    ],
+    steps:[
+      "Combine the sour cream, dill, garlic, parsley and lemon juice. Season with salt and pepper to taste."
+    ],
+    notes:"For seafood, potatoes, asparagus, fennel or artichokes."
+  },
+  {
+    title:"Slow Cooker French Dip", from:"", season:"winter", type:"Main",
+    ingredients:[
+      {display:"1 rump or chuck roast of beef", key:"beef"},
+      {display:"1 package onion soup mix", key:"onion soup mix"},
+      {display:"1 tsp worcestershire", key:"worcestershire"},
+      {display:"1 can or bottle beer", key:"beer"},
+      {display:"Garlic powder", key:"garlic powder"},
+      {display:"Toasted rolls, to serve", key:"roll"},
+      {display:"Melted cheese, to serve", key:"cheese"}
+    ],
+    steps:[
+      "Place the beef roast in a slow cooker with the onion soup mix, worcestershire, beer and garlic powder.",
+      "Cook 8 hours on low in the slow cooker.",
+      "Serve on toasted rolls with melted cheese and a bowl of jus on the side."
+    ]
+  },
+  {
+    title:"Shortbread Cookies", from:"Sharon Moores", season:"winter", type:"Dessert",
+    ingredients:[
+      {display:"1 lb butter, softened", key:"butter"},
+      {display:"3 cups flour", key:"flour"},
+      {display:"1 cup icing sugar", key:"icing sugar"},
+      {display:"½ cup cornstarch", key:"cornstarch"}
+    ],
+    steps:[
+      "Cream the butter with the sugar.",
+      "Add the sifted dry ingredients and gently fold into the butter.",
+      "Form into logs wrapped in parchment paper and chill at least one hour.",
+      "Slice into cookies ¼-inch thick.",
+      "Bake at 325°F for 15 minutes."
+    ]
+  },
+  {
+    title:"Hairy Monsters", from:"Brenda Caul", season:"winter", type:"Dessert",
+    ingredients:[
+      {display:"300 g pack chocolate chips", key:"chocolate chips"},
+      {display:"175 g pack butterscotch chips", key:"butterscotch chips"},
+      {display:"½ can chow mein noodles", key:"chow mein noodles"},
+      {display:"2 cups rice krispies", key:"rice krispies"}
+    ],
+    steps:[
+      "Melt the chips together over a double boiler.",
+      "Blend in the remaining ingredients one at a time.",
+      "Use a teaspoon to drop onto a wax-paper-covered cookie sheet. Refrigerate."
+    ]
+  },
+  {
+    title:"Rosalie's Rhubarb Chutney", from:"Brenda Caul", season:"summer", type:"Sauce",
+    ingredients:[
+      {display:"4 cups chopped rhubarb", key:"rhubarb"},
+      {display:"2 cups chopped onions", key:"onion"},
+      {display:"1 cup raisins", key:"raisins"},
+      {display:"½ cup cider vinegar", key:"cider vinegar"},
+      {display:"½ tsp ginger", key:"ginger"},
+      {display:"¼ tsp pepper", key:"pepper"},
+      {display:"½ tsp allspice", key:"allspice"},
+      {display:"½ tsp salt", key:"salt"},
+      {display:"¼ tsp cinnamon", key:"cinnamon"},
+      {display:"3 cups brown sugar", key:"brown sugar"}
+    ],
+    steps:[
+      "Bring everything to a boil, stir, and simmer 45 minutes."
+    ]
+  },
+  {
+    title:"Pretzels", from:"Jens Currie", season:"winter", type:"Bread",
+    ingredients:[
+      {display:"250 g flour", key:"flour"},
+      {display:"20 g yeast", key:"yeast"},
+      {display:"½ tsp sugar", key:"sugar"},
+      {display:"150 ml water", key:"water"},
+      {display:"½ tsp salt", key:"salt"},
+      {display:"2.5 tsp unsalted butter", key:"butter"},
+      {display:"For boiling: 1 L water", key:"water"},
+      {display:"For boiling: 1 tsp baking soda", key:"baking soda"},
+      {display:"For boiling: ½ tbsp salt", key:"salt"}
+    ],
+    steps:[
+      "Sift the flour into a bowl. Separately, dissolve the yeast and sugar, then add the flour, salt and butter and knead.",
+      "Roll and shape into pretzels, cover and let rise 10 minutes.",
+      "Boil water with baking soda and simmer each pretzel about 30 seconds. Place on parchment paper and refrigerate 30 minutes.",
+      "Bake at 225°F for about 20 minutes."
+    ]
+  },
+  {
+    title:"Peanut Butter Soup", from:"Greg Walsh", season:"winter", type:"Main",
+    ingredients:[
+      {display:"1 can chickpeas", key:"chickpeas"},
+      {display:"1 can diced tomatoes", key:"tomato"},
+      {display:"1 large onion", key:"onion"},
+      {display:"3 cups chicken broth", key:"chicken stock"},
+      {display:"3 tbsp peanut butter", key:"peanut butter"},
+      {display:"1 tsp ginger paste", key:"ginger"},
+      {display:"2 tsp curry", key:"curry powder"},
+      {display:"2 tsp cumin", key:"cumin"}
+    ],
+    steps:[
+      "Saute the onions and season with curry, cumin and ginger paste.",
+      "Drain the chickpeas and blend with 1.5 cups broth and 3 tablespoons peanut butter.",
+      "Add to the pot with the other 1.5 cups stock.",
+      "Add the tomatoes and onion, and season."
+    ]
+  },
+  {
+    title:"Apple Fritters", from:"Gisela Currie", season:"winter", type:"Side",
+    ingredients:[
+      {display:"¼ cup butter", key:"butter"},
+      {display:"¼ cup sugar", key:"sugar"},
+      {display:"2 eggs", key:"eggs"},
+      {display:"1¼ cups flour", key:"flour"},
+      {display:"6 tbsp milk", key:"milk"},
+      {display:"6 tbsp water", key:"water"},
+      {display:"Apples (Cortland or Macintosh)", key:"apple"}
+    ],
+    steps:[
+      "Mix the dough and dip sliced apples (peeled and cored) until coated.",
+      "Fry in canola oil."
+    ],
+    notes:"Good with cream of potatoes soup!"
+  },
+  {
+    title:"Toblerone Shortbread", from:"Sharon Moores", season:"winter", type:"Dessert",
+    ingredients:[
+      {display:"3 cups flour", key:"flour"},
+      {display:"1 lb butter", key:"butter"},
+      {display:"½ cup cornstarch", key:"cornstarch"},
+      {display:"1 cup icing sugar", key:"icing sugar"},
+      {display:"Pinch salt", key:"salt"},
+      {display:"1 Toblerone bar, chopped", key:"toblerone"}
+    ],
+    steps:[
+      "Cream the butter, then add the sugar.",
+      "Mix the flour and cornstarch and add to the creamed mixture.",
+      "Mix in the chopped Toblerone bar.",
+      "Bake at 325°F for 10–12 minutes on parchment-lined cookie sheets."
+    ]
+  },
+  {
+    title:"Pasta Plus Spinach Salad", from:"Zack Hawco", season:"summer", type:"Side",
+    ingredients:[
+      {display:"Spinach", key:"spinach"},
+      {display:"Red onions", key:"red onion"},
+      {display:"Bacon", key:"bacon"},
+      {display:"Mushrooms", key:"mushroom"},
+      {display:"Mandarins", key:"mandarin"},
+      {display:"1 cup balsamic vinegar", key:"balsamic"},
+      {display:"1 cup olive oil", key:"olive oil"},
+      {display:"1 cup honey", key:"honey"},
+      {display:"1 tbsp basil", key:"basil"},
+      {display:"2 tbsp curry powder", key:"curry powder"},
+      {display:"2 tbsp lemon juice", key:"lemon"}
+    ],
+    steps:[
+      "Whisk together the balsamic vinegar, olive oil, honey, basil, curry powder and lemon juice to make the dressing.",
+      "Toss with spinach, red onions, bacon, mushrooms and mandarins."
+    ]
+  },
+  {
+    title:"Red Waldorf Salad", from:"Stephanie Stack", season:"summer", type:"Side",
+    ingredients:[
+      {display:"1 can pickled beets", key:"beets"},
+      {display:"½ cup whole berry cranberry sauce", key:"cranberry sauce"},
+      {display:"1 tbsp red wine vinegar", key:"red wine vinegar"},
+      {display:"¼ cup olive oil", key:"olive oil"},
+      {display:"1 Gala apple", key:"apple"},
+      {display:"2 small ribs of celery", key:"celery"},
+      {display:"½ cup red seedless grapes", key:"grapes"},
+      {display:"¼ cup walnut pieces", key:"walnut"}
+    ],
+    steps:[
+      "Whisk the cranberry sauce, red wine vinegar and olive oil into a dressing.",
+      "Combine the pickled beets, apple, celery, grapes and walnuts, and toss with the dressing."
+    ]
+  },
+  {
+    title:"Chocolate Chip Cookies", from:"Jens Currie", season:"year-round", type:"Dessert",
+    ingredients:[
+      {display:"2 cups flour", key:"flour"},
+      {display:"½ tsp baking soda", key:"baking soda"},
+      {display:"½ tsp salt", key:"salt"},
+      {display:"¾ cup butter, melted", key:"butter"},
+      {display:"1 cup brown sugar", key:"brown sugar"},
+      {display:"½ cup white sugar", key:"sugar"},
+      {display:"1 tbsp vanilla", key:"vanilla"},
+      {display:"1 egg + 1 egg yolk", key:"eggs"},
+      {display:"2 cups chocolate chips", key:"chocolate chips"}
+    ],
+    steps:[
+      "Preheat oven to 325°F and line cookie sheets with parchment paper.",
+      "Sift the flour, baking soda and salt in a separate bowl.",
+      "Cream together the melted butter, brown sugar and white sugar. Beat in the vanilla and eggs.",
+      "Mix in the dry ingredients, then the chocolate chips.",
+      "Bake 15 minutes."
+    ],
+    notes:"Makes 12 large cookies."
+  },
+  {
+    title:"German Cucumber Salad", from:"Jens Currie", season:"summer", type:"Side",
+    ingredients:[
+      {display:"1 large cucumber", key:"cucumber"},
+      {display:"4 tsp sour cream", key:"sour cream"},
+      {display:"1 tsp white vinegar", key:"white vinegar"},
+      {display:"1 tsp dill", key:"dill"},
+      {display:"Salt & pepper", key:"salt"}
+    ],
+    steps:[
+      "Peel and slice the cucumber. Place in a bowl, season with salt and pepper, and let sit 20 minutes.",
+      "Mix the sour cream, vinegar and dill and pour over the cucumber. Optionally add finely chopped onion and garlic."
+    ],
+    notes:"Serve with grilled meats."
+  },
+  {
+    title:"Mussels Marinière", from:"Brenda Caul", season:"summer", type:"Main",
+    ingredients:[
+      {display:"Blue mussels (~2 lbs per person)", key:"mussels"},
+      {display:"1 bottle white wine", key:"white wine"},
+      {display:"Carrots", key:"carrot"},
+      {display:"Onions (try fennel)", key:"onion"},
+      {display:"Cream", key:"cream"},
+      {display:"Garlic", key:"garlic"}
+    ],
+    steps:[
+      "Grate the carrot and onion and set aside.",
+      "Scrub the mussels and place in a large pot with the wine. Cover and boil.",
+      "Remove the mussels and place in a colander (discard any unopened ones).",
+      "In the liquid in the pot, add garlic and cream, bring to a boil, and add the veggies.",
+      "When the sauce thickens, add the mussels and stir. Serve with bread."
+    ]
+  },
+  {
+    title:"Pizza Dough", from:"Gisela Currie", season:"year-round", type:"Bread",
+    ingredients:[
+      {display:"1½ tsp yeast", key:"yeast"},
+      {display:"½ tsp sugar", key:"sugar"},
+      {display:"3½ cups flour", key:"flour"},
+      {display:"1½ tsp salt", key:"salt"},
+      {display:"1½ cups warm water", key:"water"},
+      {display:"1 egg", key:"eggs"},
+      {display:"1 tsp olive oil", key:"olive oil"},
+      {display:"1 tsp honey", key:"honey"}
+    ],
+    steps:[
+      "Mix the dry ingredients, then add the wet.",
+      "Knead, let rise, and beat down a few times."
+    ]
+  },
+  {
+    title:"Garlic Sauce", from:"Gisela Currie", season:"year-round", type:"Sauce",
+    ingredients:[
+      {display:"⅔ cup Hellman's mayo", key:"mayonnaise"},
+      {display:"⅓ cup plain yoghurt", key:"yogurt"},
+      {display:"3–4 cloves chopped garlic", key:"garlic"},
+      {display:"½ tbsp lemon juice", key:"lemon"},
+      {display:"1 tsp Grand Marnier", key:"grand marnier"},
+      {display:"Cayenne pepper, to taste", key:"cayenne"}
+    ],
+    steps:[
+      "Combine all the ingredients, seasoning with cayenne to taste."
+    ]
+  },
+  {
+    title:"Caramel Pecan Ice Cream Dessert", from:"Marilyn Stack", season:"summer", type:"Dessert",
+    ingredients:[
+      {display:"1¾ cups flour", key:"flour"},
+      {display:"1 cup chopped pecans", key:"pecans"},
+      {display:"1 cup lightly packed brown sugar", key:"brown sugar"},
+      {display:"1 cup oats", key:"oats"},
+      {display:"1 cup margarine, melted", key:"margarine"},
+      {display:"1½ cups caramel sundae sauce", key:"caramel"},
+      {display:"8 cups vanilla ice cream, slightly softened", key:"ice cream"}
+    ],
+    steps:[
+      "Combine the flour, pecans, brown sugar and oats in a large bowl. Add the melted margarine and mix well.",
+      "Spread out in a thin layer on a large baking sheet. Bake at 400°F, stirring occasionally, for 15 minutes or until golden. Crumble any large chunks while the mixture is warm, then let stand until cool.",
+      "Spread half of the crumb mix into a 9x13-inch pan and drizzle with half of the sauce. Spread the softened ice cream evenly over the crumbs, pressing down and levelling the top. If the ice cream is starting to melt, freeze the pan for about 15 minutes before proceeding.",
+      "Sprinkle the remaining crumbs over the ice cream and drizzle the remaining sauce on top. Cover and store in the freezer.",
+      "To serve, cut into squares. If the ice cream is too hard to cut, let it soften for a short time in the refrigerator."
+    ],
+    notes:"The crumbs can be made ahead and keep for a couple of months or longer in a covered container in the refrigerator. Once assembled, the dessert keeps well for about a month in the freezer; after that the crumbs start to soften and lose their crunch. Very popular with both little and big kids."
+  },
+  {
+    title:"Nacho Dip", from:"Carla Whittle", season:"year-round", type:"Appetizer",
+    ingredients:[
+      {display:"Cream cheese", key:"cream cheese"},
+      {display:"1 can chili (eg Stagg hot and spicy)", key:"chili"},
+      {display:"Cheddar cheese", key:"cheddar"},
+      {display:"Nacho chips, to serve", key:"nacho chips"}
+    ],
+    steps:[
+      "Spread a bottom layer of cream cheese in a dish.",
+      "Add a can of chili (Stagg hot and spicy works well), then top with cheddar cheese.",
+      "Melt in the oven and serve with nacho chips."
+    ],
+    notes:"So easy: just three layers."
+  },
+  {
+    title:"Spinach and Rice Salad", from:"Patricia Whittle", season:"summer", type:"Side",
+    ingredients:[
+      {display:"2 cups rice, cooked and cooled", key:"rice"},
+      {display:"¼ cup finely diced celery", key:"celery"},
+      {display:"¼ cup chopped green onion", key:"green onion"},
+      {display:"5 slices bacon, cooked crisp and crumbled", key:"bacon"},
+      {display:"2 cups spinach (more if desired), chopped", key:"spinach"},
+      {display:"½ cup creamy Italian dressing", key:"italian dressing"},
+      {display:"1–2 tbsp soy sauce", key:"soy sauce"}
+    ],
+    steps:[
+      "Cook and cool the rice, and cook the bacon until crisp, then crumble.",
+      "Mix everything well and you're done."
+    ],
+    notes:"For the rice, Minute Rice works well: 2 cups water to 2 cups rice, plus salt."
+  },
+  {
+    title:"Shortbread Meltaways", from:"Marilyn Stack", season:"winter", type:"Dessert",
+    ingredients:[
+      {display:"1 cup unsalted butter, softened", key:"butter"},
+      {display:"½ cup fine sugar or icing sugar", key:"sugar"},
+      {display:"1 tsp vanilla", key:"vanilla"},
+      {display:"1¾ cups flour", key:"flour"},
+      {display:"½ cup corn starch", key:"cornstarch"},
+      {display:"¾ tsp baking powder (see note)", key:"baking powder"},
+      {display:"¼ tsp salt", key:"salt"},
+      {display:"1 cup toffee bits", key:"toffee bits"},
+      {display:"Optional: Toblerone bars, broken into blocks", key:"toblerone"}
+    ],
+    steps:[
+      "Preheat oven to 350°F. Line cookie sheets with parchment paper or grease them.",
+      "Beat the butter, sugar and vanilla together until creamy.",
+      "In a separate bowl, combine the flour, corn starch, baking powder and salt. Stir half into the butter mixture, then stir in the toffee bits and the remaining flour mixture.",
+      "Roll heaping tablespoonfuls of dough into balls. Place on the prepared cookie sheets, spacing about 2 inches apart. Press a block of Toblerone into each cookie if desired.",
+      "Bake in the centre of the preheated oven for 15 minutes or until lightly golden.",
+      "Let cool on the pan for 5 minutes to set before transferring to cookie racks to finish cooling."
+    ],
+    notes:"Makes 48. Marilyn omits the baking powder for a flatter cookie; it is a matter of preference, so try it with and without and see which you like better. These should freeze well, if they last that long!"
+  },
+  {
+    title:"Gulaschsoup", from:"Gisela Currie", season:"winter", type:"Main",
+    ingredients:[
+      {display:"1 large onion, chopped", key:"onion"},
+      {display:"1 tbsp margarine", key:"margarine"},
+      {display:"500 ml beef or chicken broth (or water with Knorr powdered mix)", key:"beef stock"},
+      {display:"300 g cubed beef", key:"beef"},
+      {display:"1 can pureed tomatoes", key:"tomato"},
+      {display:"1 garlic clove, chopped", key:"garlic"},
+      {display:"Salt, to taste", key:"salt"},
+      {display:"Cayenne pepper, to taste", key:"cayenne"},
+      {display:"Paprika, to taste", key:"paprika"},
+      {display:"Garlic and onion powder, to taste", key:"garlic powder"},
+      {display:"2 large potatoes, cubed", key:"potato"},
+      {display:"Optional: green and/or red peppers, chopped", key:"bell pepper"}
+    ],
+    steps:[
+      "Saute the chopped onion in the margarine.",
+      "Add the broth (water mixed with Knorr powdered mix works), the cubed beef, the pureed tomatoes, the chopped garlic and any or all of the spices to taste (salt, cayenne, paprika, garlic and onion powder).",
+      "Bring to a boil and simmer for 1 hour.",
+      "Add the cubed potatoes and cook another 20 minutes, stirring occasionally to avoid sticking. Taste again before serving."
+    ],
+    notes:"Serves about 4. Some versions add chopped green and/or red peppers at the same time as the meat."
+  },
+  {
+    title:"Spicy Vegetable Dip", from:"Gisela Currie", season:"summer", type:"Sauce",
+    ingredients:[
+      {display:"1 cup mayo (or half Greek yogurt and half mayo)", key:"mayonnaise"},
+      {display:"2 tbsp grated onion", key:"onion"},
+      {display:"2 tsp tarragon", key:"tarragon"},
+      {display:"2 tsp chopped chives", key:"chives"},
+      {display:"2 tsp chili sauce", key:"chili sauce"},
+      {display:"½ tsp curry powder", key:"curry powder"},
+      {display:"½ tsp salt", key:"salt"},
+      {display:"¼ tsp pepper", key:"pepper"},
+      {display:"⅛ tsp thyme", key:"thyme"}
+    ],
+    steps:[
+      "Combine all the ingredients and mix well.",
+      "Serve with crudité."
+    ],
+    notes:"For fewer calories, use half Greek yogurt and half mayo, or all yogurt."
+  }
+];
+
+/* ========================= APP ========================= */
+const $ = s => document.querySelector(s);
+const grid = $("#grid"), overlay = $("#overlay"), modal = $("#modal");
+const staples = new Set(STAPLES.map(s=>s.toLowerCase()));
+let pantry = [];
+
+// Populate type & source filters from the data
+function unique(arr){return [...new Set(arr)]}
+unique(RECIPES.map(r=>r.type)).sort().forEach(t=>{
+  const o=document.createElement("option");o.value=t.toLowerCase();o.textContent=t;$("#type").appendChild(o);
+});
+unique(RECIPES.map(r=>r.from).filter(Boolean)).sort().forEach(s=>{
+  const o=document.createElement("option");o.value=s.toLowerCase();o.textContent=s;$("#source").appendChild(o);
+});
+
+const norm = s => s.toLowerCase().trim();
+// Reduce a word to a rough singular stem so "strawberries" == "strawberry", "tomatoes" == "tomato".
+function singular(w){
+  if(w.length<=3) return w;                              // keep short words (oat? no — "oats" is 4)
+  if(/ies$/.test(w)) return w.slice(0,-3)+"y";           // berries -> berry
+  if(/(ses|xes|zes|ches|shes)$/.test(w)) return w.slice(0,-2); // dishes -> dish, boxes -> box
+  if(/oes$/.test(w)) return w.slice(0,-2);               // tomatoes -> tomato, potatoes -> potato
+  if(/ss$/.test(w)) return w;                            // glass stays glass
+  if(/s$/.test(w)) return w.slice(0,-1);                 // eggs -> egg, onions -> onion, grapes -> grape
+  return w;
+}
+// Canonical form: singularize every word, sort, so word order and plurals don't matter.
+function canon(str){
+  return norm(str).split(/[\s]+/).map(singular).filter(Boolean).sort().join(" ");
+}
+// Singularized words of a phrase.
+function words(str){ return canon(str).split(" ").filter(Boolean); }
+// Match when one ingredient's words are contained in the other's, so "onion" matches
+// "green onion" and "beans" matches "black beans", while plurals still line up
+// ("strawberries" == "strawberry").
+function ingHas(key, token){
+  const a=words(key), b=words(token);
+  const A=new Set(a), B=new Set(b);
+  return a.every(w=>B.has(w)) || b.every(w=>A.has(w));
+}
+function nonStaple(r){ return r.ingredients.filter(i=>!staples.has(norm(i.key))); }
+function haveKey(key){ return pantry.some(p=>ingHas(key,p)); }
+
+function matchInfo(r){
+  const need = nonStaple(r);
+  const have = need.filter(i=>haveKey(i.key));
+  return {need:need.length, have:have.length, ready: need.length>0 && have.length===need.length};
+}
+
+// Every word appearing anywhere in a recipe (title, source, ingredients, steps, notes),
+// singularized — lets the pantry match text like "serve with nacho chips", not just the
+// ingredient list.
+function recipeWords(r){
+  const txt=[r.title, r.from, r.notes||"",
+    r.ingredients.map(i=>i.display+" "+i.key).join(" "),
+    r.steps.join(" ")].join(" ");
+  return new Set(norm(txt).split(/[^a-z0-9]+/).filter(Boolean).map(singular));
+}
+// Does any pantry item appear somewhere in the recipe text (beyond the ingredient list)?
+function pantryInText(r){
+  const ws=recipeWords(r);
+  return pantry.some(p=>{const pw=words(p); return pw.length>0 && pw.every(w=>ws.has(w));});
+}
+
+function seasonLabel(s){return s==="year-round"?"Year-round":s.charAt(0).toUpperCase()+s.slice(1);}
+function seasonDotClass(s){return s==="summer"?"summer":s==="winter"?"winter":"year";}
+
+function render(){
+  const q=norm($("#search").value);
+  const fSeason=$("#season").value, fType=$("#type").value, fSource=$("#source").value;
+  const readyOnly=$("#ready-only").checked;
+  const pantryActive = pantry.length>0;
+
+  let list = RECIPES.filter(r=>{
+    if(fSeason && r.season!==fSeason) return false;
+    if(fType && r.type.toLowerCase()!==fType) return false;
+    if(fSource && r.from.toLowerCase()!==fSource) return false;
+    if(q){
+      const hay = (r.title+" "+r.from+" "+r.ingredients.map(i=>i.display+" "+i.key).join(" ")+" "+r.steps.join(" ")+" "+(r.notes||"")).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if(pantryActive){
+    list = list.map(r=>({r, m:matchInfo(r), t:pantryInText(r)}));
+    if(readyOnly) list = list.filter(x=>x.m.ready);
+    else list = list.filter(x=>x.m.have>0 || x.t);
+    list.sort((a,b)=> (b.m.ready-a.m.ready) || ((b.m.have-b.m.need)-(a.m.have-a.m.need)) || (b.m.have-a.m.have) || (b.t-a.t));
+  } else {
+    list = list.map(r=>({r, m:null, t:false}));
+  }
+
+  $("#count").textContent = list.length===0 ? "No recipes" :
+    list.length+" recipe"+(list.length>1?"s":"")+(pantryActive?(readyOnly?" · ready to make":" · using your ingredients"):"");
+
+  grid.innerHTML="";
+  if(list.length===0){
+    const msg = pantryActive
+      ? (readyOnly
+          ? 'No recipe uses only what you have. Uncheck &ldquo;only what I can make now&rdquo; to see partial matches.'
+          : 'None of your recipes use those ingredients yet. Try different ones.')
+      : 'Try clearing a filter.';
+    grid.innerHTML='<div class="empty" style="grid-column:1/-1"><strong>No matches yet</strong>'+msg+'</div>';
+    return;
+  }
+
+  list.forEach(({r,m,t},idx)=>{
+    const card=document.createElement("button");
+    card.className="card"+(m&&m.ready?" ready":"");
+    card.style.animationDelay=(Math.min(idx,10)*28)+"ms";
+    let flag="";
+    if(m){
+      flag = m.ready
+        ? '<span class="ready-flag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Ready to make</span>'
+        : (m.have>0
+            ? '<span class="have-flag">You have '+m.have+' of '+m.need+' ingredients</span>'
+            : (t ? '<span class="have-flag">Mentioned in this recipe</span>' : ''));
+    }
+    const peek = r.ingredients.map(i=>i.key).slice(0,5).join(" · ");
+    card.innerHTML=`
+      <div class="card-top">
+        <span class="season-dot"><span class="dot ${seasonDotClass(r.season)}"></span>${seasonLabel(r.season)}</span>
+        <span class="type-tag">${r.type}</span>
+      </div>
+      <div>
+        <h3>${r.title}</h3>
+        ${r.from?`<p class="from">from ${r.from}</p>`:""}
+      </div>
+      <p class="ing-peek">${peek}</p>
+      ${flag}
+    `;
+    card.addEventListener("click",()=>openModal(r));
+    grid.appendChild(card);
+  });
+}
+
+function openModal(r){
+  const pantryActive = pantry.length>0;
+  const ings = r.ingredients.map(i=>{
+    const have = pantryActive && (staples.has(norm(i.key)) || haveKey(i.key));
+    const tick = have
+      ? '<span class="tick">✓</span>'
+      : '<span class="tick miss">○</span>';
+    return `<li>${tick}<span>${i.display}</span></li>`;
+  }).join("");
+  const steps = r.steps.map(s=>`<li><span>${s}</span></li>`).join("");
+  modal.innerHTML=`
+    <div class="modal-head">
+      <button class="modal-close" aria-label="Close" onclick="closeModal()">×</button>
+      <span class="type-tag">${r.type}</span>
+      <h2 id="modal-title">${r.title}</h2>
+      ${r.from?`<p class="from">from ${r.from}</p>`:""}
+      <div class="modal-tags">
+        <span class="season-dot"><span class="dot ${seasonDotClass(r.season)}"></span>${seasonLabel(r.season)}</span>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div>
+        <h4>Ingredients${pantryActive?' — ✓ means you have it':''}</h4>
+        <ul class="ings">${ings}</ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">${steps}</ol>
+      </div>
+      ${r.notes?`<p class="notes"><b>Note —</b> ${r.notes}</p>`:""}
+    </div>`;
+  overlay.classList.add("open");
+  document.body.style.overflow="hidden";
+  modal.querySelector(".modal-close").focus();
+}
+function closeModal(){overlay.classList.remove("open");document.body.style.overflow=""}
+overlay.addEventListener("click",e=>{if(e.target===overlay)closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+
+/* Pantry chips */
+const pantryInput=$("#pantry-input"), chipbox=$("#chipbox"), clearBtn=$("#clear-pantry");
+function addPantry(val){
+  const v=norm(val).replace(/,+$/,"").trim();
+  if(!v) return;
+  if(!pantry.includes(v)) pantry.push(v);
+  renderChips(); render();
+}
+function renderChips(){
+  chipbox.querySelectorAll(".chip").forEach(c=>c.remove());
+  pantry.forEach(p=>{
+    const chip=document.createElement("span");
+    chip.className="chip";
+    chip.innerHTML=`${p}<button aria-label="Remove ${p}">×</button>`;
+    chip.querySelector("button").addEventListener("click",()=>{
+      pantry=pantry.filter(x=>x!==p);renderChips();render();
+    });
+    chipbox.insertBefore(chip,pantryInput);
+  });
+  clearBtn.hidden = pantry.length===0;
+}
+pantryInput.addEventListener("keydown",e=>{
+  if(e.key==="Enter"||e.key===","){e.preventDefault();addPantry(pantryInput.value);pantryInput.value="";}
+  if(e.key==="Backspace"&&!pantryInput.value&&pantry.length){pantry.pop();renderChips();render();}
+});
+clearBtn.addEventListener("click",()=>{pantry=[];renderChips();render();$("#ready-only").checked=false;});
+
+["#search","#season","#type","#source","#ready-only"].forEach(sel=>{
+  $(sel).addEventListener("input",render);
+  $(sel).addEventListener("change",render);
+});
+
+render();
+</script>
+</body>
+</html>
