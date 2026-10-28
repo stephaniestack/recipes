@@ -208,6 +208,7 @@
   }
   @media (max-width:560px){
     .controls-inner{flex-direction:column;align-items:stretch}
+    .search{flex:0 0 auto}
     select{width:100%}
     .masthead-inner{padding:30px 20px 24px}
   }
@@ -954,7 +955,7 @@ const RECIPES = [
     title:"Red Waldorf Salad", from:"Stephanie Stack", season:"summer", type:"Side",
     ingredients:[
       {display:"1 can pickled beets", key:"beets"},
-      {display:"½ cup whole berry cranberry sauce", key:"cranberry sauce"},
+      {display:"¼ cup whole berry cranberry sauce", key:"cranberry sauce"},
       {display:"1 tbsp red wine vinegar", key:"red wine vinegar"},
       {display:"¼ cup olive oil", key:"olive oil"},
       {display:"1 Gala apple", key:"apple"},
@@ -1170,6 +1171,145 @@ const RECIPES = [
       "Serve with crudité."
     ],
     notes:"For fewer calories, use half Greek yogurt and half mayo, or all yogurt."
+  },
+  {
+    title:"Chicken in Cream of Mushrooms", from:"", season:"winter", type:"Main",
+    ingredients:[
+      {display:"4 tbsp olive oil", key:"olive oil"},
+      {display:"2 chicken breasts, cut in pieces", key:"chicken"},
+      {display:"Salt and pepper", key:"salt"},
+      {display:"1 lb cremini mushrooms, cut in pieces (or portobello)", key:"mushroom"},
+      {display:"2 tbsp butter", key:"butter"},
+      {display:"1 tbsp flour", key:"flour"},
+      {display:"2 cups chicken stock", key:"chicken stock"},
+      {display:"½ cup cream", key:"cream"},
+      {display:"2 tbsp dijon mustard", key:"dijon"},
+      {display:"¼ cup chopped parsley", key:"parsley"},
+      {display:"20 chives, chopped", key:"chives"},
+      {display:"Egg noodles, to serve", key:"egg noodles"}
+    ],
+    steps:[
+      "Cook the chicken in 2 tbsp olive oil and season with salt and pepper.",
+      "Cook the mushrooms the same way in another pan. Melt butter in with the mushrooms and add the flour.",
+      "Cook for one minute, then whisk in 1½ cups chicken stock, the cream and the mustard. Bring to a boil.",
+      "Add the other ½ cup chicken stock to the chicken pan and scrape up the brown bits. Add to the mushroom pan, stir, and cook for a few minutes to thicken.",
+      "Cook the egg noodles, drain and return to the pot. Add 2 tbsp butter, salt, pepper, chives and parsley to the noodles.",
+      "Pour the sauce over the noodles."
+    ],
+    notes:"Serves 4. The card says to melt butter into the mushrooms without giving an amount; the ingredient list has 2 tbsp butter, and another 2 tbsp goes into the noodles."
+  },
+  {
+    title:"Cajun Pork Sandwiches", from:"", season:"year-round", type:"Main",
+    ingredients:[
+      {display:"2 pork tenderloins (1 lb each)", key:"pork tenderloin"},
+      {display:"2 tsp vegetable oil", key:"oil"},
+      {display:"3 tbsp paprika", key:"paprika"},
+      {display:"2 tsp oregano", key:"oregano"},
+      {display:"2 tsp thyme", key:"thyme"},
+      {display:"1½ tsp garlic powder", key:"garlic powder"},
+      {display:"½ tsp pepper", key:"pepper"},
+      {display:"½ tsp salt", key:"salt"},
+      {display:"½ tsp ground cumin", key:"cumin"},
+      {display:"¼ tsp ground nutmeg", key:"nutmeg"},
+      {display:"¼ tsp cayenne pepper", key:"cayenne"},
+      {display:"36 French bread slices or mini buns", key:"bread"},
+      {display:"Butter or mayo", key:"mayonnaise"},
+      {display:"Lettuce leaves", key:"lettuce"},
+      {display:"Slices of red and green pepper", key:"bell pepper"}
+    ],
+    steps:[
+      "Place the tenderloins in a greased 13×9×2\" baking pan. Rub each with oil.",
+      "In a bowl, combine the spices and pat over the tenderloins. Cover and refrigerate overnight.",
+      "Bake at 425°F for 25–30 minutes, or until a thermometer reads 160–170°F.",
+      "Let stand for 10 minutes, then slice thinly.",
+      "Spread the buns with mayo or butter and top with lettuce, pork and peppers."
+    ]
+  },
+  {
+    title:"Gisela's Salad Dressing", from:"Gisela Currie", season:"year-round", type:"Sauce",
+    ingredients:[
+      {display:"3 tbsp canola oil", key:"canola oil"},
+      {display:"3 tbsp cream", key:"cream"},
+      {display:"1 tbsp German vinegar", key:"vinegar"},
+      {display:"¼ tsp salt", key:"salt"},
+      {display:"¼ tsp sugar", key:"sugar"},
+      {display:"Maggi, to taste", key:"maggi"}
+    ],
+    steps:[
+      "Whisk everything together, adding Maggi to taste."
+    ]
+  },
+  {
+    title:"Sweet & Sour Sauce", from:"", season:"year-round", type:"Sauce",
+    ingredients:[
+      {display:"1 can pineapple chunks", key:"pineapple"},
+      {display:"½ cup vinegar", key:"vinegar"},
+      {display:"½ cup brown sugar", key:"brown sugar"},
+      {display:"4 tbsp soy sauce", key:"soy sauce"},
+      {display:"½ tsp ginger", key:"ginger"},
+      {display:"¼ cup cornstarch", key:"cornstarch"},
+      {display:"1 red pepper", key:"bell pepper"},
+      {display:"1 onion, diced", key:"onion"}
+    ],
+    steps:[],
+    notes:"The card lists ingredients only; no method was written down."
+  },
+  {
+    title:"Roast Beef", from:"", season:"winter", type:"Main",
+    ingredients:[
+      {display:"Beef roast", key:"beef"},
+      {display:"Seasoning", key:"seasoning"},
+      {display:"½ cup water", key:"water"}
+    ],
+    steps:[
+      "Season the beef.",
+      "Lay it on a rack on top of a roasting pan with ½ cup water in the pan.",
+      "Roast at 500°F for 30 minutes, then turn the heat to 275°F until the meat reaches 150°F (60–70 minutes).",
+      "Let stand 15 minutes, then slice thinly."
+    ]
+  },
+  {
+    title:"Slow Cooker Sweet Fire Chicken", from:"", season:"winter", type:"Main",
+    ingredients:[
+      {display:"4 boneless skinless chicken breasts", key:"chicken"},
+      {display:"1 pineapple, cut in chunks", key:"pineapple"},
+      {display:"2 red bell peppers, cut in chunks", key:"bell pepper"},
+      {display:"2 tsp minced garlic", key:"garlic"},
+      {display:"2 tsp crushed red pepper flakes", key:"red pepper flakes"},
+      {display:"⅔ cup sugar", key:"sugar"},
+      {display:"1 cup water", key:"water"},
+      {display:"2 tbsp sweet chili sauce", key:"sweet chili sauce"},
+      {display:"½ tsp salt", key:"salt"},
+      {display:"3 tbsp cornstarch + 4 tbsp water", key:"cornstarch"},
+      {display:"Rice, to serve", key:"rice"}
+    ],
+    steps:[
+      "Add the chicken, peppers and pineapple to the slow cooker.",
+      "Mix together the sauce ingredients and pour over.",
+      "Cook on low 4–5 hours.",
+      "30 minutes before serving, add the water and cornstarch mix to thicken the sauce.",
+      "Serve over rice."
+    ],
+    notes:"The cornstarch and water amounts are written over on the card; they read as 3 tbsp cornstarch and 4 tbsp water."
+  },
+  {
+    title:"Newfoundland Slush", from:"", season:"summer", type:"Drink",
+    ingredients:[
+      {display:"1 can frozen orange juice concentrate", key:"orange juice"},
+      {display:"1 can frozen lemonade concentrate", key:"lemonade"},
+      {display:"1 can pineapple juice", key:"pineapple juice"},
+      {display:"7½ cups boiling water", key:"water"},
+      {display:"1½ cups sugar", key:"sugar"},
+      {display:"26 oz vodka", key:"vodka"},
+      {display:"7-Up or cola, to serve", key:"soda"}
+    ],
+    steps:[
+      "Boil the water and sugar together. Remove from the heat and let cool.",
+      "Stir in the orange juice, lemonade and pineapple juice. Add the vodka and stir again.",
+      "Transfer to a container with a tight-fitting lid (e.g. a small salt beef bucket) and put in the freezer. Let chill at least overnight.",
+      "To serve, fill a glass with 2 ice cream scoops of slush and top with 7-Up or cola."
+    ],
+    notes:"Store the slush in the freezer between uses."
   }
 ];
 
@@ -1335,10 +1475,10 @@ function openModal(r){
         <h4>Ingredients${pantryActive?' — ✓ means you have it':''}</h4>
         <ul class="ings">${ings}</ul>
       </div>
-      <div>
+      ${steps?`<div>
         <h4>Method</h4>
         <ol class="steps">${steps}</ol>
-      </div>
+      </div>`:""}
       ${r.notes?`<p class="notes"><b>Note —</b> ${r.notes}</p>`:""}
     </div>`;
   overlay.classList.add("open");
