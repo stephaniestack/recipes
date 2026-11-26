@@ -283,6 +283,24 @@
    ========================================================================= */
 const STAPLES = ["salt","pepper","olive oil","oil","butter","sugar","flour","water"];
 
+/* SEARCH GROUPS: searching the word on the left also finds recipes that mention
+   any word on the right (e.g. "pasta" finds Greek Linguine). It only works one way:
+   searching "linguine" still finds just linguine. Use singular words; add freely. */
+const SEARCH_GROUPS = {
+  pasta:     ["linguine","fettuccine","spaghetti","penne","macaroni","rotini","lasagna","vermicelli","egg noodle","spätzle"],
+  noodle:    ["pasta","linguine","fettuccine","spaghetti","vermicelli","ramen","spätzle"],
+  seafood:   ["shrimp","prawn","lobster","mussel","fish","salmon","scallop","crab","cod"],
+  fish:      ["salmon","cod","tuna","halibut","trout"],
+  cookie:    ["shortbread","snickerdoodle","meltaway"],
+  nut:       ["pecan","walnut","almond","peanut","cashew","hazelnut"],
+  berry:     ["strawberr","blueberr","raspberr","cranberr","currant"],
+  cheese:    ["cheddar","parmesan","feta","mozzarella"],
+  chocolate: ["toblerone","mars bar","aero","oreo","fudge"],
+  meat:      ["beef","pork","chicken","bacon","steak","lamb","ham","sausage"],
+  pie:       ["tart"],
+  soup:      ["chowder","stew"]
+};
+
 const RECIPES = [
   {
     title:"Black Bean Dip", from:"Kathi Noah", season:"year-round", type:"Appetizer",
@@ -1778,6 +1796,13 @@ function pantryInText(r){
   return pantry.some(p=>{const pw=words(p); return pw.length>0 && pw.every(w=>ws.has(w));});
 }
 
+// Short words (3 letters or fewer) must start a word, so "nut" doesn't match "minutes"
+// and "egg" doesn't match "veggie". Longer words can appear anywhere ("soup" in "Gulaschsoup").
+function hasTerm(hay, t){
+  if(t.length>3) return hay.includes(t);
+  const esc=t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  return new RegExp("(^|[^a-z\u00c0-\u024f])"+esc).test(hay);
+}
 function seasonLabel(s){return s==="year-round"?"Year-round":s.charAt(0).toUpperCase()+s.slice(1);}
 function seasonDotClass(s){return s==="summer"?"summer":s==="winter"?"winter":"year";}
 
@@ -1792,8 +1817,13 @@ function render(){
     if(fType && r.type.toLowerCase()!==fType) return false;
     if(fSource && r.from.toLowerCase()!==fSource) return false;
     if(q){
-      const hay = (r.title+" "+r.from+" "+r.ingredients.map(i=>i.display+" "+i.key).join(" ")+" "+r.steps.join(" ")+" "+(r.notes||"")).toLowerCase();
-      if(!hay.includes(q)) return false;
+      const hay = (r.title+" "+r.from+" "+r.type+" "+seasonLabel(r.season)+" "+r.ingredients.map(i=>i.display+" "+i.key).join(" ")+" "+r.steps.join(" ")+" "+(r.notes||"")).toLowerCase();
+      // Every word typed must match (in any order); each word also matches its search group.
+      const ok = q.split(/\s+/).filter(Boolean).every(w=>{
+        const forms=[...new Set([w, singular(w), w.replace(/s$/,"")])];
+        return forms.flatMap(f=>[f, ...(SEARCH_GROUPS[f]||[])]).some(t=>hasTerm(hay,t));
+      });
+      if(!ok) return false;
     }
     return true;
   });
